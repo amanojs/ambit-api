@@ -1,14 +1,21 @@
 const express = require("express");
 const { ApolloServer, gql } = require("apollo-server-express");
+require('dotenv').config()
+const env = process.env
+
+const DB_HOST = env.DB_HOST
+const DB_USER = env.DB_USER
+const DB_PASS = env.DB_PASS
+const DB_NAME = env.DB_NAME
 
 const connectDB = conditions => {
   return new Promise(resolve => {
     const mysql = require("mysql");
     const connection = mysql.createConnection({
-      host: "localhost",
-      user: "ambit-admin",
-      password: "ultrasoul",
-      database: "ambit-test"
+      host: DB_HOST,
+      user: DB_USER,
+      password: DB_PASS,
+      database: DB_NAME
     });
     connection.connect(err => {
       if (err) {
@@ -26,6 +33,7 @@ const connectDB = conditions => {
 };
 
 const app = express();
+console.log(app.get('env'))
 
 const typeDefs = gql`
   type User {
