@@ -1,12 +1,12 @@
 const express = require("express");
 const { ApolloServer, gql } = require("apollo-server-express");
-require('dotenv').config()
-const env = process.env
+require("dotenv").config();
+const env = process.env;
 
-const DB_HOST = env.DB_HOST
-const DB_USER = env.DB_USER
-const DB_PASS = env.DB_PASS
-const DB_NAME = env.DB_NAME
+const DB_HOST = env.DB_HOST;
+const DB_USER = env.DB_USER;
+const DB_PASS = env.DB_PASS;
+const DB_NAME = env.DB_NAME;
 
 const connectDB = conditions => {
   return new Promise(resolve => {
@@ -24,6 +24,7 @@ const connectDB = conditions => {
       }
 
       console.log("connected");
+      console.log("SQL:", conditions);
       // root関数で作ったSQL文を使って検索
       connection.query(conditions, (err, results, fields) => {
         resolve(JSON.parse(JSON.stringify(results)));
@@ -33,7 +34,7 @@ const connectDB = conditions => {
 };
 
 const app = express();
-console.log(app.get('env'))
+console.log(app.get("env"));
 
 const typeDefs = gql`
   type User {
